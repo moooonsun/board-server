@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- src/main/resources/mapper/BoardMapper.xml -->
+<mapper namespace="com.example.board.mapper.BoardMapper">
+
+    <insert id="save" parameterType="BoardDTO">
+        INSERT INTO board (title, content, author)
+        VALUES (#{title}, #{content}, #{author})
+    </insert>
+
+    <update id="update" parameterType="BoardDTO">
+        UPDATE board SET title = #{title}, content = #{content} WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM board WHERE id = #{id}
+    </delete>
+
+    <select id="findById" parameterType="int" resultType="BoardDTO">
+        SELECT * FROM board WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultType="BoardDTO">
+        SELECT * FROM board
+    </select>
+
+    <select id="findByTitleContaining" parameterType="String" resultType="BoardDTO">
+        SELECT * FROM board WHERE title LIKE CONCAT('%', #{title}, '%')
+    </select>
+
+    <select id="findByAuthorContaining" parameterType="String" resultType="BoardDTO">
+        SELECT * FROM board WHERE author LIKE CONCAT('%', #{author}, '%')
+    </select>
+
+    <update id="incrementGood" parameterType="int">
+        UPDATE board SET good = good + 1 WHERE id = #{id}
+    </update>
+
+</mapper>
